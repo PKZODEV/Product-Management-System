@@ -18,7 +18,9 @@ app.get("/products", (req, res) => {
 });
 
 app.get("/products/:id", (req, res) => {
-  const ShowProductbyId = Product.find((p) => p.id === parseInt(req.params.id));
+  const ShowProductbyId = Product.find(
+    (product) => product.id === parseInt(req.params.id)
+  );
   if (!ShowProductbyId)
     return res.status(404).json({ error: "ไม่มีสินค้าชิ้นนี้" });
   res.json(ShowProductbyId);
@@ -41,7 +43,7 @@ app.put("/products/:id", (req, res) => {
     return res.status(402).json({ error: "ไม่มีข้อมูล name ในคำขอ" });
   }
   const UpdateProductbyId = Product.find(
-    (p) => p.id === parseInt(req.params.id)
+    (product) => product.id === parseInt(req.params.id)
   );
   if (!UpdateProductbyId)
     return res.status(404).json({ error: "ไม่มีสินค้าชิ้นนี้" });
@@ -53,7 +55,9 @@ app.put("/products/:id", (req, res) => {
 });
 
 app.delete("/products/:id", (req, res) => {
-  const index = Product.findIndex((p) => p.id === parseInt(req.params.id));
+  const index = Product.findIndex(
+    (product) => product.id === parseInt(req.params.id)
+  );
   if (index === -1)
     return res.status(404).json({ error: "ไม่มีสินค้าชิ้นนี้" });
   const DeletedProduct = Product.splice(index, 1);
