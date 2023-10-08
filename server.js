@@ -3,7 +3,7 @@ const app = express();
 const port = 3000;
 const Product = require("./product");
 
-app.use(express.json())
+app.use(express.json());
 
 app.get("/", (req, res) => {
   res.send("Default Page");
@@ -68,7 +68,10 @@ app.delete("/product/:id", (req, res) => {
     const ProductIndex = Product.findIndex(
       (product) => product.id === parseInt(req.params.id)
     );
-    const DeleteProductbyID = Product.splice(ProductIndex, 1)
+    if (ProductIndex === -1) {
+      return res.status(404).json({ error: "Not Found" });
+    }
+    const DeleteProductbyID = Product.splice(ProductIndex, 1);
     res.json(DeleteProductbyID);
   } catch (error) {
     console.error("หาข้อมูลสินค้าไม่เจอ:", error);
